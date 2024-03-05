@@ -1,43 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="asset/style/style.css">
-  <title>Cocktail-recipe</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="asset/style/style.css" />
+    <title>Cocktail-recipe</title>
+  </head>
+  <body>
+    <main>
+      <h1>Cocktail reciept</h1>
 
-  <div class="carousel-container">
-    <div class="carousel">
-      <!-- Carousel items will be dynamically generated here -->
-    </div>
-  </div>
-  
-  <div class="selected-drink">
-    <img src="" alt="" class="drink-image">
-    <h2 class="drink-name"></h2>
-    <button class="recipe-button">View Recipe</button>
-    <div class="recipe-dropdown"></div>
-  </div>
+      <div class="carousel-container">
+        <div class="selected-drink">
+          <img src="" alt="" class="drink-image" />
+          <h2 class="drink-name"></h2>
+          <button class="recipe-button">View Recipe</button>
+          <div class="recipe-dropdown"></div>
+        </div>
+        
+        <a class="prev">&#10094;</a>
+        <a class="next">&#10095;</a>
+      </div>
+      <br />
 
-<!-- <main>
-  <h1>Cocktail reciept</h1>
+      <div style="text-align: center">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </main>
 
-  <div class="slideshow-container">
-    <div class="cocktail-details"></div>
-    <a class="prev">&#10094;</a>
-    <a class="next">&#10095;</a>
-
-  </div>
-<br>
-
-  <div style="text-align:center">
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-  </div>
-</main> -->
-  <script type="module" src="index.js"></script>
-</body>
+    <script type="module" src="index.js"></script>
+  </body>
 </html>
