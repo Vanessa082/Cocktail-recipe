@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const selectedDrnk = document.querySelector('.selected-drink')
   const drinkImage = document.querySelector(".drink-image")
   const drinkName = document.querySelector(".drink-name")
   const recipeButton = document.querySelector(".recipe-button");
@@ -7,6 +8,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const recipeDropdown = document.querySelector(".recipe-dropdown")
 
   let drinkData = []
+  let idx = 0
+
+  let interval = setInterval(run, 2000)
 
   const fetchDrinkData = async () => {
     const response = await fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php");
@@ -14,22 +18,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (data.drinks) {
       drinkData = data.drinks
-      updateDrink(0);
+      updateDrink(0)
     }
   }
 
-  const updateDrink = (i) => {
-    const drink = drinkData[i]
+  const updateDrink = (idx) => {
+    const drink = drinkData[idx]
     drinkImage.src = drink.strDrinkThumb;
     drinkName.textContent = drink.strDrink;
     recipeDropdown.textContent = drink.strInstructions;
   }
 
-  fetchDrinkData();
+  fetchDrinkData()
 
   recipeButton.addEventListener("click", function () {
     recipeDropdown.style.display = "block";
   });
+
+const run = () =>{
+  idx++
+  changeDrinkData()
+}
+
+const changeDrinkData = () =>{
+  if(idx > drinkData.length -1){
+    idx = 0
+  } else if (idx < 0){
+    idx = drinkData,length
+  }
+
+  selectedDrnk.style.transform = `translateX(${-idx * 500}px)`
+}
 
   prevButton.addEventListener('click', () => {
     const currentDrink = drinkData.findIndex((drink) => drink.strDrink === drinkName.textContent);
