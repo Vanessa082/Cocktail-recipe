@@ -1,70 +1,70 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const selectedDrnk = document.querySelector('.carousel-container')
-  const drinkImage = document.querySelector(".drink-image")
-  const drinkName = document.querySelector(".drink-name")
+document.addEventListener("DOMContentLoaded", async () => {
+  const drinkImage = document.querySelector(".drink-image");
+  const drinkName = document.querySelector(".drink-name");
   const recipeButton = document.querySelector(".recipe-button");
-  const prevButton = document.querySelector(".prev")
-  const nextButton = document.querySelector(".next")
-  const recipeDropdown = document.querySelector(".recipe-dropdown")
+  const prevButton = document.querySelector(".prev");
+  const nextButton = document.querySelector(".next");
+  const recipeDropdown = document.querySelector(".recipe-dropdown");
 
-  let drinkData = []
-  let idx = 0
+  let drinkData = [];
 
   const fetchDrinkData = async () => {
     const response = await fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php");
-    const data = await response.json()
-    
+    const data = await response.json();
+
     if (data.drinks) {
-      drinkData = data.drinks
-      updateDrink(0)
+      drinkData = data.drinks.slice(0, 50);
+      updateDrink(0);
     }
   }
-  
+
   const updateDrink = (idx) => {
-    const drink = drinkData[idx]
+    const drink = drinkData[idx];
     drinkImage.src = drink.strDrinkThumb;
     drinkName.textContent = drink.strDrink;
     recipeDropdown.textContent = drink.strInstructions;
-  }
-  
-  fetchDrinkData()
-  
-  recipeButton.addEventListener("click", function () {
+  };
+
+  await fetchDrinkData();
+
+  // recipe button
+
+  recipeButton.addEventListener("click", () => {
     recipeDropdown.style.display = "block";
+    const translateY = 0;
+    recipeDropdown.style.transform = `translateY(${translateY}px)`
   });
-  
+
   // automatic transition
+  let idx = 0;
 
-  const run = () =>{
-    idx++
-    changeDrinkData()
-  }
+  setInterval(() => {
+    if (idx > drinkData.length - 1) {
+      idx = 0;
+    } else if (idx < 0) {
+      idx = drinkData.length - 1;
+    };
 
-  setInterval(run, 2000)
+    // selectedDrnk.style.transform = `translateX(${-idx * 500}px)`;
 
-const changeDrinkData = () =>{
-  if(idx > drinkData.length -1){
-    idx = 0
-  } else if (idx < 0){
-    idx = drinkData.length
-  }
+    idx += 1;
 
-  selectedDrnk.style.transform = `translateX(${-idx * 500}px)`
-}
+    updateDrink(idx);
 
-// buttons
+    console.log('current indx', idx, drinkData);
+  }, 5000);
+
+  // buttons
 
   prevButton.addEventListener('click', () => {
     const currentDrink = drinkData.findIndex((drink) => drink.strDrink === drinkName.textContent);
-    const prevDrink = (currentDrink - 1 + drinkData.length) % drinkData.length
-    updateDrink(prevDrink)
-    console.log(fetchDrinkData())
-  })
+    const prevDrink = (currentDrink - 1 + drinkData.length) % drinkData.length;
+    updateDrink(prevDrink);
+  });
 
   nextButton.addEventListener('click', () => {
     const currentDrink = drinkData.findIndex((drink) => drink.strDrink === drinkName.textContent);
-    const nextDrink = (currentDrink + 1) % drinkData.length
-    updateDrink(nextDrink)
-    console.log(fetchDrinkData())
-  })
+    const nextDrink = (currentDrink + 1) % drinkData.length;
+    updateDrink(nextDrink);
+  });
 });
