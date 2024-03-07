@@ -35,6 +35,8 @@ main {
   }
 
   .carousel-container {
+    transform: translateX(0);
+    transition: transform 0.5s ease-in-out;
     box-shadow: 2px 2px 5px #0000004d;
     position: relative;
     height: 570px;
@@ -48,8 +50,6 @@ main {
     width: 100%;
     display: flex;
     flex-direction: column;
-    transform: translateX(0);
-    transition: transform 0.5s ease-in-out;
     position: relative;
     background-color: #f9f9f9;
     padding: 20px;
@@ -76,6 +76,18 @@ main {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
+  }
+
+  .recipe-dropdown{
+    color: #fff;
+    background-color: #0e0e0f;
+    opacity: 0.5;
+    padding: 2rem;
+    position: absolute;
+    left: 5%;
+    bottom: 20%;
+    right: 5%;
+    max-height: 100%;
   }
 }
 
