@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let drinkData = [];
 
   const fetchDrinkData = async () => {
-    const response = await fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php");
+    const response = await fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a");
     const data = await response.json();
 
     if (data.drinks) {
@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const updateDrink = (idx) => {
     const drink = drinkData[idx];
+    console.log({ drink, drinkData, idx })
     drinkImage.src = drink.strDrinkThumb;
     drinkName.textContent = drink.strDrink;
     recipeDropdown.textContent = drink.strInstructions;
